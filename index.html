@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Budapest Bingo</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Budapest Bingo</h1>
+
+    <table>
+        <tr>
+            <th>B</th>
+            <th>I</th>
+            <th>N</th>
+            <th>G</th>
+            <th>O</th>
+        </tr>
+        <tr>
+            <td id="cell0"></td>
+            <td id="cell1"></td>
+            <td id="cell2"></td>
+            <td id="cell3"></td>
+            <td id="cell4"></td>
+        </tr>
+        <tr>
+            <td id="cell5"></td>
+            <td id="cell6"></td>
+            <td id="cell7"></td>
+            <td id="cell8"></td>
+            <td id="cell9"></td>
+        </tr>
+        <tr>
+            <td id="cell10"></td>
+            <td id="cell11"></td>
+            <td id="cell12"></td>
+            <td id="cell13"></td>
+            <td id="cell14"></td>
+        </tr>
+        <tr>
+            <td id="cell15"></td>
+            <td id="cell16"></td>
+            <td id="cell17"></td>
+            <td id="cell18"></td>
+            <td id="cell19"></td>
+        </tr>
+        <tr>
+            <td id="cell20"></td>
+            <td id="cell21"></td>
+            <td id="cell22"></td>
+            <td id="cell23"></td>
+            <td id="cell24"></td>
+        </tr>
+    </table>
+
+    <button onclick="window.print()">Print Card</button>
+
+    <script>
+        // Array of bingo words
+        const WORDS = [
+            'Feet whining',
+            'Dance circle',
+            'Bible verses',
+            'Table dancing',
+            'Public puke',
+            'Ass crack',
+            'Broken glass',
+            'Bad singalong',
+            'Dancefloor wipeout',
+            'Late something',
+            'Slug kiss',
+            'Happy tears',
+            'Wedding limbo',
+            'Unplanned speech',
+            'Glitter mess',
+            'Blood drawn',
+            'White people Persian dancing',
+            'Wardrobe malfunction',
+            'Nip slip',
+            'Congo line',
+            'Wedding party hookup',
+            'Blackout Drunk boomer',
+            'Sad Tears',
+            'In-law fight',
+            'Breakdancing'
+        ];
+
+        // Shuffle the words array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function setWords(words) {
+            // Set the cells to the first 25 words in the shuffled array
+            for (let i = 0; i < 25; i++) {
+                document.getElementById(`cell${i}`).innerHTML = words[i];
+            }
+
+            // Mark the center cell as "FREE"
+            document.getElementById("cell12").innerHTML = "DRAMA";
+        }
+
+        function main() {
+            const savedWords = localStorage.getItem('bingo');
+            if (savedWords) {
+                const parsedSavedWords = JSON.parse(savedWords);
+                setWords(parsedSavedWords);
+            } else {
+                const words = shuffleArray(WORDS);
+                localStorage.setItem('bingo', JSON.stringify(words));
+                setWords(words);
+            }
+            generateCard();
+        }
+
+        main();
+
+
+    </script>
+</body>
